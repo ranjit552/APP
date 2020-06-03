@@ -1,18 +1,17 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: argo-ingress
-  namespace: argocd
-  annotations:    
-    kubernetes.io/ingress.class: nginx    
-    nginx.ingress.kubernetes.io/force-ssl-redirect: "false"    
-    nginx.ingress.kubernetes.io/ssl-passthrough: "false" 
+  name: argocd-server-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+    nginx.ingress.kubernetes.io/upstream-vhost: a5fde99889c5.ngrok.io
 spec:
   rules:
-  - http:
+  - host: localhost
+    http:
       paths:
-      - path: /argo
-        backend:
-           serviceName: app-argocd-server
-           servicePort: 80 
-       
+      - backend:
+          serviceName: argocd-server
+          servicePort: https     
