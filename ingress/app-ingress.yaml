@@ -8,7 +8,8 @@ metadata:
     
 spec:
   rules:
-  - http:
+  - host: app.local
+    http:
       paths:
       - path: /app
         backend:
